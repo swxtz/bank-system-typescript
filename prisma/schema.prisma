@@ -10,17 +10,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Accont {
+model Account {
   id           String   @id @default(uuid())
   numberAccont Int      @unique
-  FirstName    String
-  LastName     String
+  firstName    String
+  lastName     String
   amount       Int
   createdAt    DateTime @default(now())
 
   Transactions Transaction[]
 
-  @@map("acconts")
+  @@map("accounts")
 }
 
 model Transaction {
@@ -30,9 +30,8 @@ model Transaction {
   oldAmount Int
   newAmount Int
 
-  
-  Accont        Accont? @relation(fields: [accontId], references: [id])
-  accontId      String?
+  Account   Account? @relation(fields: [accountId], references: [id])
+  accountId String?
 
   @@map("transactions")
 }
