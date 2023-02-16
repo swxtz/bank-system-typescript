@@ -1,0 +1,1 @@
+a bank system made in typescript with basic operations, focused on the study
