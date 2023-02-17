@@ -11,4 +11,6 @@ routes.get("/", (req:Request, res:Response) => {
 
 routes.post("/account", Account.create);
 
+routes.get("/balance", Account.getAmountByAccountNumber);
+
 export { routes };

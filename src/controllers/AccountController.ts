@@ -14,16 +14,16 @@ export class Account {
 
     const { firstName, lastName, amount } = createAccontBody.parse(req.body);
 
-    let numberAccont: number = createRandomNumberWithSevenDigits();
+    let numberAccount: number = createRandomNumberWithSevenDigits();
 
     const existAccountWithSameNumber = await prisma.account.findFirst({
       where: {
-        numberAccont,
+        numberAccount,
       },
     });
 
     if (existAccountWithSameNumber) {
-      numberAccont = createRandomNumberWithSevenDigits();
+      numberAccount = createRandomNumberWithSevenDigits();
     }
 
     try {
@@ -32,14 +32,14 @@ export class Account {
           firstName,
           lastName,
           amount: centsToIntegers(amount),
-          numberAccont,
+          numberAccount,
         },
       });
 
       await res
         .json({
           msg: "Conta criada com sucesso",
-          AccontNumber: numberAccont,
+          AccountNumber: numberAccount,
         })
         .status(201);
     } catch (error) {
@@ -47,5 +47,17 @@ export class Account {
     }
   }
 
-  
+  static async getAmountByAccountNumber(req: Request, res: Response) {
+    const requestParams = z.object({
+      numberAccount: z.number()
+    });
+
+    const { numberAccount } = requestParams.parse(req.params);
+
+    await prisma.account.findUnique({
+      where:  {
+        
+      }
+    });
+  }
 }

@@ -16,7 +16,7 @@ async function run() {
         firstName: "Jonh",
         lastName: "Doe",
         amount: centsToIntegers(100),
-        numberAccont: firstAccountNumber
+        numberAccount: firstAccountNumber
       }
     }),
 
@@ -25,7 +25,7 @@ async function run() {
         firstName: "Jane",
         lastName: "Doe",
         amount: centsToIntegers(560),
-        numberAccont: secondAccountNumber
+        numberAccount: secondAccountNumber
       }
     })
   ]);

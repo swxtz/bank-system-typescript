@@ -12,7 +12,7 @@ datasource db {
 
 model Account {
   id           String   @id @default(uuid())
-  numberAccont Int      @unique
+  numberAccount Int      @unique
   firstName    String
   lastName     String
   amount       Int
