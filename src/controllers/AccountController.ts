@@ -48,16 +48,22 @@ export class Account {
   }
 
   static async getAmountByAccountNumber(req: Request, res: Response) {
-    const requestParams = z.object({
-      numberAccount: z.number()
+    const params = req.params.numberAccount;
+
+    const numberAccount = Number(params);
+
+    const getBalance = await prisma.account.findUnique({
+      where: {
+        numberAccount,
+      },
     });
 
-    const { numberAccount } = requestParams.parse(req.params);
-
-    await prisma.account.findUnique({
-      where:  {
-        
-      }
-    });
+    if (getBalance) {
+      return await res.json({
+        balance: getBalance.amount,
+      });
+    } else {
+      return res.status(404);
+    }
   }
 }

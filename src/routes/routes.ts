@@ -1,5 +1,6 @@
 import { Request, Response, Router } from "express";
 import { Account } from "../controllers/AccountController";
+import { convertStringToNumberInParams } from "../middleware/convertStringToNumberInParams";
 
 const routes = Router();
 
@@ -11,6 +12,6 @@ routes.get("/", (req:Request, res:Response) => {
 
 routes.post("/account", Account.create);
 
-routes.get("/balance", Account.getAmountByAccountNumber);
+routes.get("/balance/:numberAccount", Account.getAmountByAccountNumber);
 
 export { routes };
