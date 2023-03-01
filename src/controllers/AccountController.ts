@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { z } from "zod";
+import { number, z } from "zod";
 import { prisma } from "../lib/prisma";
+import { IWithdrawBody, IWithdrawParams } from "../types/withdrawDTO";
 import { centsToIntegers } from "../utils/centsToIntegers";
 import { createRandomNumberWithSevenDigits } from "../utils/createRandomNumberWithSevenDigits";
 
@@ -65,5 +66,37 @@ export class Account {
     } else {
       return res.status(404);
     }
+  }
+
+  static async withdraw(req: Request<IWithdrawParams, IWithdrawBody >, res: Response) {
+    try {
+      const params = req.params.numberAccount;
+      const numberAccountParams = Number(params);
+
+      const requestBody:IWithdrawBody = req.body; 
+      
+      const amountForWithdraw = z.number().positive().min(100).parse(requestBody.amountForWithdraw);
+
+      const numberAccount = z.number().positive().parse(numberAccountParams);
+
+      console.log(amountForWithdraw);
+      console.log(typeof amountForWithdraw);
+
+      const accountData = await prisma.account.findUnique({
+        where: {
+          numberAccount
+        }
+      }); 
+
+
+    } catch (error) {
+
+      if(error instanceof z.ZodError) {
+        return res.status(400).json(error.issues);
+        
+      }
+    }
+
+    return;
   }
 }

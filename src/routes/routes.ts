@@ -14,4 +14,8 @@ routes.post("/account", Account.create);
 
 routes.get("/balance/:numberAccount", Account.getAmountByAccountNumber);
 
+routes.patch("/withdraw/:numberAccount", Account.withdraw);
+
+
+
 export { routes };
